@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { Section } from '../components/Section';
 import { ButtonItem } from './ButtonItem/ButtonItem';
 import { Statistics } from './Statistics/Statistics';
@@ -7,7 +7,7 @@ import '../components/App.css';
 
 const feedbacks = ['good', 'neutral', 'bad'];
 
-export class App extends React.Component {
+export class App extends Component {
   state = {
     good: 0,
     neutral: 0,
@@ -38,23 +38,21 @@ export class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <Section title={'feedback'}>
-            <h1>Please leave feedback</h1>
-            <ul className="list">
-              {feedbacks.map(feedback => (
-                <ButtonItem
-                  key={feedback}
-                  feedback={feedback}
-                  addFeedback={this.addFeedback}
-                ></ButtonItem>
-              ))}
-            </ul>
-          </Section>
-        </div>
+      <div className="container">
+        <Section title={'feedback'}>
+          <h1>Please leave feedback</h1>
+          <ul className="list">
+            {feedbacks.map(feedback => (
+              <ButtonItem
+                key={feedback}
+                feedback={feedback}
+                addFeedback={this.addFeedback}
+              ></ButtonItem>
+            ))}
+          </ul>
+        </Section>
         {this.countTotalFeedback() === 0 ? (
-          <Notification></Notification>
+          <Notification message={'There is no feedback'}></Notification>
         ) : (
           <Section title={'statistics'}>
             <Statistics
