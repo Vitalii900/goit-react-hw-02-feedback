@@ -1,21 +1,17 @@
 import PropTypes from 'prop-types';
 import '../Statistics/Statistics.css';
 
-export function Statistics({
-  state,
-  countTotalFeedback,
-  countPositiveFeedbackPercentage,
-}) {
+export function Statistics({ good, neutral, bad, total, positivePercentage }) {
   return (
     <div>
       <h2>Statistics</h2>
       <div className="statistics">
-        <p className="stat stat_good">Good: {state.good}</p>
-        <p className="stat stat_neutral">Neutral: {state.neutral}</p>
-        <p className="stat stat_bad">Bad: {state.bad}</p>
-        <p className="stat stat_total">Total: {countTotalFeedback()}</p>
+        <p className="stat stat_good">Good: {good}</p>
+        <p className="stat stat_neutral">Neutral: {neutral}</p>
+        <p className="stat stat_bad">Bad: {bad}</p>
+        <p className="stat stat_total">Total: {total()}</p>
         <p className="stat stat_positive">
-          Positive feedback: {countPositiveFeedbackPercentage()} %
+          Positive feedback: {positivePercentage()} %
         </p>
       </div>
     </div>
@@ -23,11 +19,9 @@ export function Statistics({
 }
 
 Statistics.propTypes = {
-  state: PropTypes.shape({
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-  }),
-  countTotalFeedback: PropTypes.func.isRequired,
-  countPositiveFeedbackPercentage: PropTypes.func.isRequired,
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.func.isRequired,
+  positivePercentage: PropTypes.func.isRequired,
 };

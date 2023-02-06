@@ -1,11 +1,11 @@
 import { Component } from 'react';
 import { Section } from '../components/Section';
-import { ButtonItem } from './ButtonItem/ButtonItem';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 import { Notification } from './Notification/Notification';
 import '../components/App.css';
 
-const feedbacks = ['good', 'neutral', 'bad'];
+const options = ['good', 'neutral', 'bad'];
 
 export class App extends Component {
   state = {
@@ -14,7 +14,7 @@ export class App extends Component {
     bad: 0,
   };
 
-  addFeedback = value => {
+  onLeaveFeedback = value => {
     this.setState(prevState => {
       return {
         [value]: prevState[value] + 1,
@@ -41,26 +41,21 @@ export class App extends Component {
       <div className="container">
         <Section title={'feedback'}>
           <h1>Please leave feedback</h1>
-          <ul className="list">
-            {feedbacks.map(feedback => (
-              <ButtonItem
-                key={feedback}
-                feedback={feedback}
-                addFeedback={this.addFeedback}
-              ></ButtonItem>
-            ))}
-          </ul>
+          <FeedbackOptions
+            options={options}
+            onLeaveFeedback={this.onLeaveFeedback}
+          ></FeedbackOptions>
         </Section>
         {this.countTotalFeedback() === 0 ? (
           <Notification message={'There is no feedback'}></Notification>
         ) : (
           <Section title={'statistics'}>
             <Statistics
-              state={this.state}
-              countTotalFeedback={this.countTotalFeedback}
-              countPositiveFeedbackPercentage={
-                this.countPositiveFeedbackPercentage
-              }
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback}
+              positivePercentage={this.countPositiveFeedbackPercentage}
             ></Statistics>
           </Section>
         )}
